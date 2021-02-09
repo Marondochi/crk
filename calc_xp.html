@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>경험치 계산</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./themes/crk.min.css">
+	<link rel="stylesheet" href="./themes/jquery.mobile.icons.min.css">
+	<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css">
+	<style>
+		ul {
+			border: 1px solid black;
+		}
+		.ui-block-a, .ui-block-b, .ui-block-c, .ui-block-d, .ui-block-e { text-align: center; }
+	</style>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="./js/jquery.toast.js"></script>
+	<script src="./js/calc_xp.js"></script>
+</head>
+<body>
+	<div data-role="page" data-theme="a" id="calc_xp_page">
+		<div data-role="header">
+			<a href="https://marondochi.github.io/crk/" rel="external" class="ui-btn ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Home</a>
+			<h1>경험치 계산</h1>
+		</div>
+		<div data-role="main" class="ui-content">
+			<fieldset class="ui-grid-d">
+				<div class="ui-block-a" style="width: 10%;"></div>
+				<div class="ui-block-b" style="width: 30%;"><h4 style="color: white;">현재 레벨</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: #00FF00;">>>></h4></div>
+				<div class="ui-block-d" style="width: 30%;"><h4 style="color: yellow;">목표 레벨</h4></div>
+				<div class="ui-block-e" style="width: 10%;"></div>
+			</fieldset>
+			<fieldset class="ui-grid-d">
+				<div class="ui-block-a" style="width: 15%;"></div>
+				<div class="ui-block-b" style="width: 20%;"><input type="text" id="curr_level" data-mini="true" data-inline="true" value="1" maxlength="2" placeholder="1~49"  style="text-align: center;"></div>
+				<div class="ui-block-c" style="width: 30%;"></div>
+				<div class="ui-block-d" style="width: 20%;"><input type="text" id="archive_level" data-mini="true" data-inline="true" value="50" maxlength="2" placeholder="2~50" style="text-align: center;"></div>
+				<div class="ui-block-e" style="width: 15%;"></div>
+			</fieldset>
+			<fieldset class="ui-grid-solo">
+				<div class="ui-block-a"><h4 style="color: white;">현재 경험치</h4></div>
+			</fieldset>
+			<fieldset class="ui-grid-d">
+				<div class="ui-block-a" style="width: 35%;"></div>
+				<div class="ui-block-b" style="width: 30%;"><input type="text" id="curr_xp" data-mini="true" data-inline="true" value="0" maxlength="6"  style="text-align: center;"></div>
+				<div class="ui-block-c" style="width: 35%;"></div>
+			</fieldset>
+			<br>
+			<fieldset class="ui-grid-solo">
+				<div class="ui-block-a"><h3 style="color: violet; margin-bottom: 0px;">보유한 별사탕</h3></div>
+			</fieldset>
+			<fieldset class="ui-grid-b">
+				<div class="ui-block-a">
+					<h4 style="color: white; margin-bottom: 0px;">레벨 1</h4>
+					<h5 style="color: skyblue; margin-top: 0px; margin-bottom: 0px;">xp 14</h5>
+				</div>
+				<div class="ui-block-b">
+					<h4 style="color: white; margin-bottom: 0px;">레벨 2</h4>
+					<h5 style="color: skyblue; margin-top: 0px; margin-bottom: 0px;">xp 60</h5>
+				</div>
+				<div class="ui-block-c">
+					<h4 style="color: white; margin-bottom: 0px;">레벨 3</h4>
+					<h5 style="color: skyblue; margin-top: 0px; margin-bottom: 0px;">xp 150</h5>
+				</div>
+				<div class="ui-block-a"><input type="text" id="candy_1" data-mini="true" data-inline="true" value="0" maxlength="6" style="text-align: center;"></div>
+				<div class="ui-block-b"><input type="text" id="candy_2" data-mini="true" data-inline="true" value="0" maxlength="6" style="text-align: center;"></div>
+				<div class="ui-block-c"><input type="text" id="candy_3" data-mini="true" data-inline="true" value="0" maxlength="6" style="text-align: center;"></div>
+				<div class="ui-block-a">
+					<h4 style="color: white; margin-bottom: 0px;">레벨 4</h4>
+					<h5 style="color: skyblue; margin-top: 0px; margin-bottom: 0px;">xp 400</h5>
+				</div>
+				<div class="ui-block-b">
+					<h4 style="color: white; margin-bottom: 0px;">레벨 5</h4>
+					<h5 style="color: skyblue; margin-top: 0px; margin-bottom: 0px;">xp 800</h5>
+				</div>
+				<div class="ui-block-c">
+					<h4 style="color: white; margin-bottom: 0px;">레벨 6</h4>
+					<h5 style="color: skyblue; margin-top: 0px; margin-bottom: 0px;">xp 1,600</h5>
+				</div>
+				<div class="ui-block-a"><input type="text" id="candy_4" data-mini="true" data-inline="true" value="0" maxlength="6" style="text-align: center;"></div>
+				<div class="ui-block-b"><input type="text" id="candy_5" data-mini="true" data-inline="true" value="0" maxlength="6" style="text-align: center;"></div>
+				<div class="ui-block-c"><input type="text" id="candy_6" data-mini="true" data-inline="true" value="0" maxlength="6" style="text-align: center;"></div>
+				<div class="ui-block-a">
+					<h4 style="color: white; margin-bottom: 0px;">레벨 7</h4>
+					<h5 style="color: skyblue; margin-top: 0px; margin-bottom: 0px;">xp 3,000</h5>
+				</div>
+				<div class="ui-block-a"><input type="text" id="candy_7" data-mini="true" data-inline="true" value="0" maxlength="6" style="text-align: center;"></div>
+			</fieldset>
+			<fieldset class="ui-grid-solo">
+				<div class="ui-block-a"><input type="button" id="calc_xp" value="필요한 경험치 계산"/></div>
+			</fieldset>
+			<fieldset class="ui-grid-c">
+				<div class="ui-block-a" style="width: 10%;"></div>
+				<div class="ui-block-b" style="width: 40%;"><h3 style="color: white;">필요 경험치</h3></div>
+				<div class="ui-block-c" style="width: 40%;"><h3 id="total_req_xp" style="color: #00ff00;">0</h3></div>
+				<div class="ui-block-d" style="width: 10%;"></div>
+				<div class="ui-block-a" style="width: 10%;"></div>
+				<div class="ui-block-b" style="width: 40%;"><h3 style="color: white;">부족한 경험치</h3></div>
+				<div class="ui-block-c" style="width: 40%;"><h3 id="req_xp_for_star_candy" style="color: #ff0000;">0</h3></div>
+				<div class="ui-block-d" style="width: 10%;"></div>
+			</fieldset>
+			<fieldset class="ui-grid-solo">
+				<div class="ui-block-a"><a href="#xp_table_dialog" class="ui-btn" style="text-decoration:none;">경험치 표</a></div>
+			</fieldset>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h1><a href="https://marondochi.github.io/crob/" rel="external" style="color: white; text-decoration: none;">오븐브레이크 Lab</a></h1>
+		</div>
+	</div>
+	<div data-role="dialog" id="xp_table_dialog">
+		<div data-role="header">
+			<h1>경험치 표</h1>
+		</div>
+		<div data-role="main" class="ui-content" style="background-color: #431814;">
+			<fieldset class="ui-grid-d">
+				<div class="ui-block-a" style="width: 20%;"><h5 style="color: #17EC57; margin-top: 0px; margin-bottom: 0px;">시작 레벨</h5></div>
+				<div class="ui-block-b" style="width: 5%;"></div>
+				<div class="ui-block-c" style="width: 20%;"><h5 style="color: #17EC57; margin-top: 0px; margin-bottom: 0px;">도달 레벨</h5></div>
+				<div class="ui-block-d" style="width: 25%;"><h5 style="color: #17EC57; margin-top: 0px; margin-bottom: 0px;">필요 경험치</h5></div>
+				<div class="ui-block-e" style="width: 30%;"><h5 style="color: #17EC57; margin-top: 0px; margin-bottom: 0px;">누적 경험치</h5></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">1</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">2</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">60</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_2" style="color: white; margin-top: 10px; margin-bottom: 5px;">60</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">2</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">3</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">80</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_3" style="color: white; margin-top: 10px; margin-bottom: 5px;">140</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">3</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">4</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">100</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_4" style="color: white; margin-top: 10px; margin-bottom: 5px;">240</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">4</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">5</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">120</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_5" style="color: white; margin-top: 10px; margin-bottom: 5px;">360</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">5</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">6</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">150</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_6" style="color: white; margin-top: 10px; margin-bottom: 5px;">510</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">6</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">7</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">180</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_7" style="color: white; margin-top: 10px; margin-bottom: 5px;">690</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">7</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">8</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">220</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_8" style="color: white; margin-top: 10px; margin-bottom: 5px;">910</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">8</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">9</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">270</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_9" style="color: white; margin-top: 10px; margin-bottom: 5px;">1,180</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">9</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: yellow; margin-top: 10px; margin-bottom: 5px;">10</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">330</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_10" style="color: yellow; margin-top: 10px; margin-bottom: 5px;">1,510</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: yellow; margin-top: 10px; margin-bottom: 5px;">10</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">11</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">400</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_11" style="color: white; margin-top: 10px; margin-bottom: 5px;">1,910</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">11</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">12</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">480</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_12" style="color: white; margin-top: 10px; margin-bottom: 5px;">2,390</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">12</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">13</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">570</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_13" style="color: white; margin-top: 10px; margin-bottom: 5px;">2,960</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">13</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">14</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">680</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_14" style="color: white; margin-top: 10px; margin-bottom: 5px;">3,640</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">14</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">15</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">810</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_15" style="color: white; margin-top: 10px; margin-bottom: 5px;">4,450</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">15</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">16</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">970</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_16" style="color: white; margin-top: 10px; margin-bottom: 5px;">5,420</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">16</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">17</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">1,160</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_17" style="color: white; margin-top: 10px; margin-bottom: 5px;">6,580</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">17</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">18</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">1,380</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_18" style="color: white; margin-top: 10px; margin-bottom: 5px;">7,960</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">18</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">19</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">1,640</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_19" style="color: white; margin-top: 10px; margin-bottom: 5px;">9,600</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">19</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: yellow; margin-top: 10px; margin-bottom: 5px;">20</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">1,950</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_20" style="color: yellow; margin-top: 10px; margin-bottom: 5px;">11,550</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: yellow; margin-top: 10px; margin-bottom: 5px;">20</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">21</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">2,320</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_21" style="color: white; margin-top: 10px; margin-bottom: 5px;">13,870</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">21</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">22</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">2,760</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_22" style="color: white; margin-top: 10px; margin-bottom: 5px;">16,630</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">22</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">23</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">3,280</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_23" style="color: white; margin-top: 10px; margin-bottom: 5px;">19,910</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">23</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">24</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">3,900</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_24" style="color: white; margin-top: 10px; margin-bottom: 5px;">23,810</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">24</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">25</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">4,630</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_25" style="color: white; margin-top: 10px; margin-bottom: 5px;">28,440</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">25</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">26</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">5,500</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_26" style="color: white; margin-top: 10px; margin-bottom: 5px;">33,940</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">26</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">27</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">1,160</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_27" style="color: white; margin-top: 10px; margin-bottom: 5px;">40,470</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">27</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">28</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">7,750</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_28" style="color: white; margin-top: 10px; margin-bottom: 5px;">48,220</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">28</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">29</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">9,200</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_29" style="color: white; margin-top: 10px; margin-bottom: 5px;">57,420</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">29</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: yellow; margin-top: 10px; margin-bottom: 5px;">30</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">10,920</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_30" style="color: yellow; margin-top: 10px; margin-bottom: 5px;">68,340</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: yellow; margin-top: 10px; margin-bottom: 5px;">30</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">31</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">12,960</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_31" style="color: white; margin-top: 10px; margin-bottom: 5px;">81,300</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">31</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">32</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">15,380</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_32" style="color: white; margin-top: 10px; margin-bottom: 5px;">96,680</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">32</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">33</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">18,250</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_33" style="color: white; margin-top: 10px; margin-bottom: 5px;">114,930</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">33</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">34</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">21,650</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_34" style="color: white; margin-top: 10px; margin-bottom: 5px;">136,580</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">34</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">35</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">25,680</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_35" style="color: white; margin-top: 10px; margin-bottom: 5px;">162,260</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">35</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">36</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">30,460</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_36" style="color: white; margin-top: 10px; margin-bottom: 5px;">192,720</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">36</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">37</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">36,130</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_37" style="color: white; margin-top: 10px; margin-bottom: 5px;">228,850</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">37</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">38</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">42,860</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_38" style="color: white; margin-top: 10px; margin-bottom: 5px;">271,710</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">38</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">39</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">50,840</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_39" style="color: white; margin-top: 10px; margin-bottom: 5px;">322,550</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">39</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: yellow; margin-top: 10px; margin-bottom: 5px;">40</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">60,300</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_40" style="color: yellow; margin-top: 10px; margin-bottom: 5px;">382,850</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: yellow; margin-top: 10px; margin-bottom: 5px;">40</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">41</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">71,520</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_41" style="color: white; margin-top: 10px; margin-bottom: 5px;">454,370</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">41</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">42</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">84,830</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_42" style="color: white; margin-top: 10px; margin-bottom: 5px;">539,200</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">42</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">43</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">100,610</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_43" style="color: white; margin-top: 10px; margin-bottom: 5px;">639,810</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">43</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">44</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">119,330</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_44" style="color: white; margin-top: 10px; margin-bottom: 5px;">759,140</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">44</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">45</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">141,530</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_45" style="color: white; margin-top: 10px; margin-bottom: 5px;">900,670</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">45</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">46</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">167,860</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_46" style="color: white; margin-top: 10px; margin-bottom: 5px;">1,068,530</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">46</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">47</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">198,900</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_47" style="color: white; margin-top: 10px; margin-bottom: 5px;">1,267,430</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">47</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">48</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">236,130</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_48" style="color: white; margin-top: 10px; margin-bottom: 5px;">1,503,560</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">48</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">49</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">280,060</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_49" style="color: white; margin-top: 10px; margin-bottom: 5px;">1,783,620</h4></div>
+				<div class="ui-block-a" style="width: 20%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">49</h4></div>
+				<div class="ui-block-b" style="width: 5%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">→</h4></div>
+				<div class="ui-block-c" style="width: 20%;"><h4 style="color: yellow; margin-top: 10px; margin-bottom: 5px;">50</h4></div>
+				<div class="ui-block-d" style="width: 25%;"><h4 style="color: white; margin-top: 10px; margin-bottom: 5px;">331,160</h4></div>
+				<div class="ui-block-e" style="width: 30%;"><h4 id="req_xp_50" style="color: yellow; margin-top: 10px; margin-bottom: 5px;">2,114,780</h4></div>
+			</fieldset>
+		</div>
+	</div>
+</body>
+</html>
