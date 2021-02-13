@@ -19,7 +19,7 @@ $(function() { //바로 실행
 			$("#curr_level").focus();
 			return;
 		}
-		if(!$.isNumeric(archiveLevel) || archiveLevel < 2 || currLevel > 50) {
+		if(!$.isNumeric(archiveLevel) || archiveLevel < 2 || archiveLevel > 50) {
 			toastView("목표 레벨은 2~50 사이의 숫자만 가능합니다.");
 			$("#archive_level").focus();
 			return;
