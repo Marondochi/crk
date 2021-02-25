@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="./css/jquery.modal.css">
 	<link rel="stylesheet" href="./css/jquery.countdown.css">
 	<style type="text/css">
-	#countdown_content_1, #countdown_content_2, #countdown_content_3 { width: 240px; height: 45px; }
 	.ui-block-a, .ui-block-b, .ui-block-c, .ui-block-d, .ui-block-e { text-align: center; }
 	</style>
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
@@ -29,15 +28,15 @@
 		</div>
 	    <div data-role="main" class="ui-content">
 			<fieldset class="ui-grid-solo">
-				<div class="ui-block-a"><h1 style="color:white; margin-top: 0px;">컨텐츠 남은 시간</h1></div>
+				<div class="ui-block-a"><h2 style="color:white; margin-top: 0px;">컨텐츠 남은 시간</h2></div>
 			</fieldset>
 			<fieldset class="ui-grid-a">
-				<div class="ui-block-a" style="width: 43%;"><h2 style="color:yellow; margin-top: 0px;">스페셜 뽑기</h2></div>
-				<div class="ui-block-b" style="width: 57%;"><div id="countdown_content_1"></div></div>
-				<div class="ui-block-a" style="width: 43%;"><h2 style="color:yellow; margin-top: 0px;">킹덤 아레나</h2></div>
-				<div class="ui-block-b" style="width: 57%;"><div id="countdown_content_2"></div></div>
+				<div class="ui-block-a"><h3 id="content_1" style="color:yellow; margin-top: 0px;"></h3></div>
+				<div class="ui-block-b"><div id="countdown_content_1"></div></div>
+				<div class="ui-block-a"><h3 id="content_2" style="color:yellow; margin-top: 0px;"></h3></div>
+				<div class="ui-block-b"><div id="countdown_content_2"></div></div>
 			</fieldset>
-			<a href="./calc_xp" rel="external" class="ui-btn">★ 경험치 계산</a>
+			<a href="./calc_xp" rel="external" class="ui-btn ui-icon-star ui-btn-icon-left">경험치 계산</a>
 	    </div>
 	    <div data-role="footer" data-position="fixed">
 			<h1><a href="https://marondochi.github.io/crob/" rel="external" style="color: white; text-decoration: none;">오븐브레이크 Lab</a></h1>
