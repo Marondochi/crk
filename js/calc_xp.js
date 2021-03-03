@@ -1,57 +1,50 @@
 $(function() { //바로 실행
-	$("#calc_xp").click(function() {
-		let currLevel = $("#curr_level").val();
-		let currXp = $("#curr_xp").val();
-		let archiveLevel = $("#archive_level").val();
-		let candy = new Array();
-		candy[0] = $("#candy_1").val()*14;
-		candy[1] = $("#candy_2").val()*60;
-		candy[2] = $("#candy_3").val()*150;
-		candy[3] = $("#candy_4").val()*400;
-		candy[4] = $("#candy_5").val()*800;
-		candy[5] = $("#candy_6").val()*1600;
-		candy[6] = $("#candy_7").val()*3000;
-		let sumOfCandy = candy[0] + candy[1] + candy[2] + candy[3] + candy[4] + candy[5] + candy[6];
-		let totalReqXp = $("#total_req_xp");
-		
-		if(!$.isNumeric(currLevel) || currLevel < 1 || currLevel > 49) {
-			toastView("현재 레벨은 1~49 사이의 숫자만 가능합니다.");
-			$("#curr_level").focus();
-			return;
-		}
-		if(!$.isNumeric(archiveLevel) || archiveLevel < 2 || archiveLevel > 50) {
-			toastView("목표 레벨은 2~50 사이의 숫자만 가능합니다.");
-			$("#archive_level").focus();
-			return;
-		}
-		if(!$.isNumeric(currXp) || currXp < 0) {
-			toastView("현재 경험치는 0 이상의 숫자만 가능합니다.");
-			$("#curr_xp").focus();
-			return;
-		}
-		
-		let flag = 0;
-		$.each(candy, function(index, item) {
-			if(!$.isNumeric(item) || item < 0) {
-				toastView("별사탕 개수는 0 이상의 숫자만 가능합니다.");
-				$("#candy_"+eval(index+1)).focus();
-				flag = 1;
-				return;
-			}
-		});
-		if(flag) return;
-		
-		if(currLevel === "1") totalReqXp.text(numberComma(String(Number($("#req_xp_"+archiveLevel).text().replace(/,/g, ''))-currXp)));
-		else totalReqXp.text(numberComma(String(Number($("#req_xp_"+archiveLevel).text().replace(/,/g, ''))-Number($("#req_xp_"+currLevel).text().replace(/,/g, ''))-currXp)));
-		let reqXpForStarCandy = Number(totalReqXp.text().replace(/,/g, ''))-sumOfCandy;
-		if(reqXpForStarCandy < 0) $("#req_xp_for_star_candy").text("0");
-		else $("#req_xp_for_star_candy").text(numberComma(String(reqXpForStarCandy)));
-	});
+	calcXp();
+	$("#calc_xp").click(function() { calcXp(); });
+	$("#curr_level").change(function() { calcXp(); });
+	$("#archive_level").change(function() { calcXp(); });
+	$("#curr_xp").change(function() { calcXp(); });
+	for(let i = 1; i <= 7; i++) $("#star_jelly_"+i).change(function() { calcXp(); });
 });
 
-const numberComma = (x) => {
-	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const calcXp = () => {
+	let currLevel = $("#curr_level").val();
+	let currXp = $("#curr_xp").val();
+	let archiveLevel = $("#archive_level").val();
+	let maxXp = Number($("#req_xp_"+eval(Number(currLevel)+1)).text().replace(/,/g, ''));
+	$("#curr_xp").attr("max", maxXp);
+	let starJelly = [];
+	starJelly[0] = $("#star_jelly_1").val()*14;
+	starJelly[1] = $("#star_jelly_2").val()*60;
+	starJelly[2] = $("#star_jelly_3").val()*150;
+	starJelly[3] = $("#star_jelly_4").val()*400;
+	starJelly[4] = $("#star_jelly_5").val()*800;
+	starJelly[5] = $("#star_jelly_6").val()*1600;
+	starJelly[6] = $("#star_jelly_7").val()*3000;
+	let sumOfJelly = starJelly[0] + starJelly[1] + starJelly[2] + starJelly[3] + starJelly[4] + starJelly[5] + starJelly[6];
+	$("#avail_xp").text(numberComma(String(Number(currXp)+sumOfJelly)));
+	let totalReqXp = $("#total_req_xp");
+	if(currLevel === "1") totalReqXp.text(numberComma(String(Number($("#req_total_xp_"+archiveLevel).text().replace(/,/g, '')))));
+	else totalReqXp.text(numberComma(String(Number($("#req_total_xp_"+archiveLevel).text().replace(/,/g, ''))-Number($("#req_total_xp_"+currLevel).text().replace(/,/g, '')))));
+	let reqXpForStarCandy = Number(totalReqXp.text().replace(/,/g, ''))-currXp-sumOfJelly;
+	if(reqXpForStarCandy < 0) {
+		$("#req_xp_for_star_jelly").text("0");
+		$("#req_lv1_xp_for_star_jelly").text("0");
+	}
+	else {
+		$("#req_xp_for_star_jelly").text(numberComma(String(reqXpForStarCandy)));
+		$("#req_lv1_xp_for_star_jelly").text(numberComma(String(Math.ceil(reqXpForStarCandy/14))+"개"));
+	}
 }
+
+const levelValidation = (obj) => {
+	if(Number($(obj).val()) > Number($(obj).attr("max"))) $(obj).val($(obj).attr("max"));
+	if(Number($(obj).val()) < Number($(obj).attr("min"))) $(obj).val($(obj).attr("min"));
+	if(Number($("#archive_level").val()) < Number($("#curr_level").val())) $("#archive_level").val(Number($("#curr_level").val())+1);
+	if(Number($("#curr_xp").val()) > Number($("#req_xp_"+eval(Number($("#curr_level").val())+1)).text().replace(/,/g, ''))) $("#curr_xp").val(Number($("#req_xp_"+eval(Number($("#curr_level").val())+1)).text().replace(/,/g, '')));
+}
+
+const numberComma = (x) => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 const toastView = (text) => {
 	$("body").toast(text);
